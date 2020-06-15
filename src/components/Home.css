@@ -1,0 +1,54 @@
+.App {
+  margin: 0;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: rgba(252, 247, 233, 0.904);
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.App-logo {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.App-loading {
+  text-align: center;
+  margin-top: 20px;
+  font-size: large;
+  font-weight: bolder;
+  color: tomato;
+}
+
+.App-button {
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  height: 45px;
+  font-weight: bolder;
+  background-color: rgba(253, 240, 200, 0.97);
+  justify-content: space-around;
+  border-radius: 30px;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+#text-loading {
+  text-shadow: rgb(255, 251, 6) 1px 0 10px;
+}
+
+#jiglipuff {
+  cursor: pointer;
+}
+#jiglipuff:hover {
+  animation: bounce 0.8s linear;
+}

@@ -1,20 +1,23 @@
 import React from "react";
-import Pokemon from "./Pokemon";
-import { useSelector } from "react-redux";
+import "./Cards.css";
+import { Link } from "react-router-dom";
 
-export default function Cards() {
-   
-  const pokeArray = useSelector((state) => state.AllPokemons);
-
-  if(pokeArray){
-    console.log(pokeArray[0])
-  }
-  
+export default function Cards({ pokemon }) {
   return (
-     <li className="card">
-      {pokeArray.map((pokemon) => (
-        <Pokemon key={pokemon.id} name={pokemon.name} types={pokemon.types} />
-      ))}
-     </li>
-  )
+    <li className="Card">
+      <Link
+        to={`/pokemon/${pokemon.id}`}
+        style={{ textDecoration: "inherit", color: "black" }}
+      >
+        <img
+          className="Card-image"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+          alt={pokemon.name}
+        />
+        <h2 className="Card-title">
+          {pokemon.id}. {pokemon.name}
+        </h2>
+      </Link>
+    </li>
+  );
 }

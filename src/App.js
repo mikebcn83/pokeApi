@@ -1,57 +1,22 @@
-import React, {useEffect} from "react";
-// import background from './images/pokeballs_background.JPG';
-// import imgHeader1 from './images/pokeball.JPG';
-// import imgHeader2 from './images/gotta.png';
-// import pikachu from './images/pikachu.gif';
-import { useDispatch, useSelector } from "react-redux";
-import { loadPokemon } from "./actions/pokeActions";
-import Cards from "./components/Cards"
-
-const _useLoadPokemons = () => {
-  
-    const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadPokemon());
-  }, []);
-  
-  
-};
-
-const _useLoadingOrError = () => {
-  const loading = useSelector((state) => state.loading);
-  const error = useSelector((state) => state.error);
-  return [loading, error];
-}
-
+import React from "react";
+import Home from "./components/Home";
+import CardList from "./components/CardList";
+import GenerationList from "./components/GenerationList";
+import PokemonView from "./components/PokemonView";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { _useLoadPokemons } from "./components/Hooks";
 
 function App() {
- 
   _useLoadPokemons();
-
-  const [loading, error] = _useLoadingOrError();
-
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div className="error">{error.toString()}</div>;
-  }
-
   return (
-    <div className="App">
-      {/* <img src={background} className="Background" alt="logo" />
-      <header className="App-header">
-        <img src={imgHeader1} className="App-logo" alt="logo" />
-        <img src={imgHeader2} className="App-logo" alt="logo" />
-        <img src={pikachu} className="App-logo" alt="logo" />
-        <p>
-         Ultimate Pokedex
-        </p>
-        
-      </header> */}
-      <Cards/>
-    </div>
+    <Router>
+      <Home />
+      <Switch>
+        <Route exact path="/" component={CardList} />
+        <Route exact path="/generation/:generations" component={GenerationList} />
+        <Route exact path="/pokemon/:id" component={PokemonView} />
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,87 +1,34 @@
 import Axios from "axios";
 
-const BASE_URL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5";
+const url = "https://pokeapi.co/api/v2/pokemon";
+const pokedex = [];
+const LoadPokemons = async () => {
+  await ApiCall(1, 151, "I");
+  await ApiCall(152, 251, "II");
+  await ApiCall(252, 386, "III");
+  await ApiCall(387, 493, "IV");
+  // await ApiCall(494, 649, "V");
+  // await ApiCall(650, 721, "VI");
+  // await ApiCall(722, 803, "VII");
 
-var pokedex2 = [];
-
-const privateLoadPokemon = async () => {
-  const response = await Axios.get(`${BASE_URL}`);
-  const data = [...response.data.results];
-
-  var pokedex = [];
-  
-  for (let i = 0; i < data.length; i++) {
-    await Axios.get(`${data[i].url}`).then((res) => {
-      
-      pokedex.push({
-        name: res.data.name,
-        id: res.data.id,
-        img: res.data.sprites,
-        height: res.data.height,
-        weight: res.data.weight,
-        types: res.data.types.map((types) => types.type.name).join(", "),
-      });
-    });
-   
-  } 
-
-
-   return pokedex;
+  return pokedex;
 };
 
-async function GetDataPok(data){
-  var pokedex = [];
-  
-  for (let i = 0; i < data.length; i++) {
-    await Axios.get(`${data[i].url}`).then((res) => {
-      
+const ApiCall = async (limit1, limit2, generation) => {
+  for (let i = limit1; i <= limit2; i++) {
+    await Axios.get(`${url}/${i}`).then((res) => {
       pokedex.push({
         name: res.data.name,
         id: res.data.id,
-        img: res.data.sprites,
         height: res.data.height,
         weight: res.data.weight,
+        generation: generation,
         types: res.data.types.map((types) => types.type.name).join(", "),
       });
     });
-   
-  } 
-
-
-   return pokedex;
-}
-
-
-
-
-
- const _apiCall = async () => {
-  const response = await Axios.get(`${BASE_URL}`);
-  const data = [...response.data.results];
-
-  var pokedex = [];
-  
-  for (let i = 0; i < data.length; i++) {
-    Axios.get(`${data[i].url}`).then((res) => {
-      
-      pokedex.push({
-        name: res.data.name,
-        id: res.data.id,
-        img: res.data.sprites,
-        height: res.data.height,
-        weight: res.data.weight,
-        types: res.data.types.map((types) => types.type.name).join(", "),
-      });
-    });
-   
-  } 
-
-
-   return pokedex;
+  }
 };
 
 export default {
-  loadPokemons: () =>  _apiCall(),
-  
-  loadPokemons2: () => privateLoadPokemon()
+  loadPokemons: () => LoadPokemons(),
 };
